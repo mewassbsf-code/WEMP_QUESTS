@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@layer components {
+  .gradient-bg {
+    background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  }
+  
+  .card-shadow {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-wemp-pink to-wemp-purple text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-wemp-purple font-semibold py-3 px-8 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl;
+  }
+}

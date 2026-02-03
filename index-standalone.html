@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEMP Quests - Perguntas para Casais e Amigos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            color: white;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .category-card.amigos::before {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+        }
+
+        .category-card.namorados::before {
+            background: linear-gradient(135deg, #F472B6 0%, #EC4899 100%);
+        }
+
+        .category-card.amigos-coloridos::before {
+            background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
+        }
+
+        .category-card.casados::before {
+            background: linear-gradient(135deg, #F87171 0%, #EF4444 100%);
+        }
+
+        .category-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1F2937;
+            margin-bottom: 10px;
+        }
+
+        .category-description {
+            font-size: 1.1rem;
+            color: #6B7280;
+            margin-bottom: 25px;
+        }
+
+        .category-button {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .category-card.amigos .category-button {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+        }
+
+        .category-card.namorados .category-button {
+            background: linear-gradient(135deg, #F472B6 0%, #EC4899 100%);
+        }
+
+        .category-card.amigos-coloridos .category-button {
+            background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
+        }
+
+        .category-card.casados .category-button {
+            background: linear-gradient(135deg, #F87171 0%, #EF4444 100%);
+        }
+
+        .category-card:hover .category-button {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .question-container {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .back-button {
+            background: transparent;
+            border: none;
+            color: #6B7280;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            padding: 10px 20px;
+        }
+
+        .back-button:hover {
+            color: #1F2937;
+        }
+
+        .category-badge {
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question-icon {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+
+        .question-text-box {
+            background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+            border-radius: 20px;
+            padding: 40px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .question-text {
+            font-size: 1.8rem;
+            color: #1F2937;
+            text-align: center;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .question-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-next {
+            flex: 1;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-next:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 25px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .question-card {
+                padding: 30px;
+            }
+
+            .question-text {
+                font-size: 1.4rem;
+            }
+
+            .category-icon {
+                font-size: 3rem;
+            }
+
+            .category-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="homeScreen">
+            <div class="header">
+                <h1>WEMP Quests</h1>
+                <p>Descubra mais sobre seu parceiro ou amigos com perguntas incríveis</p>
+            </div>
+
+            <div class="categories-grid">
+                <div class="category-card amigos" onclick="selectCategory('amigos')">
+                    <div class="category-icon">🤝</div>
+                    <h2 class="category-title">Amigos</h2>
+                    <p class="category-description">Perguntas para conhecer melhor seus amigos</p>
+                    <div class="category-button">Começar →</div>
+                </div>
+
+                <div class="category-card namorados" onclick="selectCategory('namorados')">
+                    <div class="category-icon">💑</div>
+                    <h2 class="category-title">Namorados</h2>
+                    <p class="category-description">Perguntas românticas para casais apaixonados</p>
+                    <div class="category-button">Começar →</div>
+                </div>
+
+                <div class="category-card amigos-coloridos" onclick="selectCategory('amigos-coloridos')">
+                    <div class="category-icon">💋</div>
+                    <h2 class="category-title">Amigos Coloridos</h2>
+                    <p class="category-description">Perguntas ousadas e divertidas</p>
+                    <div class="category-button">Começar →</div>
+                </div>
+
+                <div class="category-card casados" onclick="selectCategory('casados')">
+                    <div class="category-icon">💍</div>
+                    <h2 class="category-title">Casados</h2>
+                    <p class="category-description">Perguntas picantes para casais experientes</p>
+                    <div class="category-button">Começar →</div>
+                </div>
+            </div>
+
+            <div class="footer-text">
+                Mais de 1000 perguntas únicas para você explorar
+            </div>
+        </div>
+
+        <div id="questionScreen" class="hidden">
+            <div class="question-container">
+                <div class="question-card">
+                    <div class="question-header">
+                        <button class="back-button" onclick="goBack()">← Voltar</button>
+                        <div class="category-badge" id="categoryBadge">
+                            <span id="badgeIcon"></span>
+                            <span id="badgeText"></span>
+                        </div>
+                    </div>
+
+                    <div class="question-icon" id="questionIcon"></div>
+
+                    <div class="question-text-box">
+                        <p class="question-text" id="questionText"></p>
+                    </div>
+
+                    <div class="question-actions">
+                        <button class="btn-next" id="nextButton" onclick="nextQuestion()">
+                            Próxima Pergunta →
+                        </button>
+                    </div>
+                </div>
+
+                <div class="footer-text">
+                    Aproveite cada momento de descoberta!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = {
+            'amigos': [
+                "Qual foi o momento mais engraçado que já vivemos juntos?",
+                "Se você pudesse mudar uma coisa no passado, o que seria?",
+                "Qual é o seu maior medo?",
+                "Qual é a sua memória favorita da nossa amizade?",
+                "Se pudesse ter qualquer superpoder, qual seria?",
+                "Qual é o seu sonho mais louco?",
+                "O que você mais valoriza em uma amizade?",
+                "Qual foi o melhor conselho que já recebeu?",
+                "Se pudesse jantar com qualquer pessoa, viva ou morta, quem seria?",
+                "Qual é a coisa mais corajosa que já fez?",
+                "O que te faz rir até chorar?",
+                "Qual é o seu hobby secreto?",
+                "Se pudesse viver em qualquer época, qual escolheria?",
+                "Qual é a sua maior realização até agora?",
+                "O que você faria se ganhasse na loteria?",
+                "Qual é o seu lugar favorito no mundo?",
+                "O que te deixa mais animado na vida?",
+                "Qual é a sua comida preferida?",
+                "Se pudesse aprender qualquer habilidade instantaneamente, qual seria?",
+                "Qual é o seu filme favorito de todos os tempos?",
+                "O que você faria em um dia perfeito?",
+                "Qual é a sua música favorita e por quê?",
+                "Se você escrevesse um livro, sobre o que seria?",
+                "Qual é o seu animal favorito?",
+                "O que te inspira?",
+                "Qual é a sua série de TV favorita?",
+                "Se pudesse trocar de vida com alguém por um dia, quem seria?",
+                "Qual é o seu maior arrependimento?",
+                "O que você mais admira nas pessoas?",
+                "Qual é o seu talento oculto?",
+                "Se pudesse mudar algo em você, o que seria?",
+                "Qual é a coisa mais importante que você aprendeu na vida?",
+                "O que te faz sentir mais vivo?",
+                "Qual é o seu destino dos sonhos?",
+                "Se você fosse um personagem de ficção, quem seria?",
+                "Qual é a sua maior paixão?",
+                "O que você mais gosta em você mesmo?",
+                "Qual é o melhor presente que já ganhou?",
+                "Se pudesse reviver um momento, qual seria?",
+                "Qual é a sua banda ou artista favorito?",
+                "O que te faz feliz?",
+                "Qual é o seu maior objetivo na vida?",
+                "Se pudesse ter uma conversa de 1 hora com qualquer pessoa, quem seria?",
+                "Qual é a coisa mais estranha que já comeu?",
+                "O que você faz para relaxar?",
+                "Qual é o seu esporte favorito?",
+                "Se você pudesse eliminar uma coisa do mundo, o que seria?",
+                "Qual é a sua estação do ano favorita?",
+                "O que te motiva a acordar todos os dias?",
+                "Qual é o seu videogame favorito?",
+                "Qual era o seu sonho de criança?",
+                "O que você acha que as pessoas pensam de você?",
+                "Qual é a sua cor favorita?",
+                "Se você fosse um super-herói, qual seria seu nome?",
+                "Qual é o seu livro favorito?",
+                "O que você faria se tivesse 24 horas para viver?",
+                "Qual é a coisa mais importante em sua vida?",
+                "Se pudesse dar um conselho para seu eu de 10 anos atrás, qual seria?",
+                "Qual é o seu perfume favorito?",
+                "O que você mais gosta de fazer no tempo livre?",
+                "Qual é a sua bebida favorita?",
+                "Se você pudesse ser famoso por algo, o que seria?",
+                "Qual é o seu estilo de música favorito?",
+                "O que te deixa com raiva?",
+                "Qual é o seu café da manhã favorito?",
+                "Se você pudesse criar uma lei, qual seria?",
+                "Qual é a sua sobremesa favorita?",
+                "O que você mais valoriza em si mesmo?",
+                "Qual é o seu programa de TV favorito?",
+                "Se você pudesse voltar no tempo, que conselho daria a si mesmo?",
+                "Qual é a sua pizza favorita?",
+                "O que te faz chorar?",
+                "Qual é o seu tipo de filme favorito?",
+                "Se você fosse um animal, qual seria?",
+                "Qual é a sua maior qualidade?",
+                "O que você faz quando está triste?",
+                "Qual é o seu jogo de tabuleiro favorito?",
+                "Se você pudesse mudar o mundo, o que mudaria?",
+                "Qual é a sua flor favorita?",
+                "O que você mais admira em mim?",
+                "Qual é o seu restaurante favorito?",
+                "Se você pudesse ter qualquer carro, qual seria?",
+                "Qual é a sua frase favorita?",
+                "O que te deixa nervoso?",
+                "Qual é o seu doce favorito?",
+                "Se você pudesse morar em qualquer país, qual seria?",
+                "Qual é a sua marca de roupa favorita?",
+                "O que você faz para se divertir?",
+                "Qual é o seu time favorito?",
+                "Se você pudesse ter qualquer trabalho, qual seria?",
+                "Qual é a sua rede social favorita?",
+                "O que te deixa frustrado?",
+                "Qual é o seu sorvete favorito?",
+                "Se você pudesse ter uma casa em qualquer lugar, onde seria?",
+                "Qual é a sua palavra favorita?",
+                "O que você faz quando está estressado?",
+                "Qual é o seu aplicativo favorito?",
+                "Se você pudesse encontrar qualquer celebridade, quem seria?",
+                "Qual é a sua memória mais antiga?",
+                "O que te deixa ansioso?",
+                "Qual é o seu prato favorito?",
+                "Se você pudesse ter qualquer pet, qual seria?",
+                "Qual é a sua história engraçada favorita?",
+                "O que você faz para manter a calma?",
+                "Qual é o seu YouTuber favorito?",
+                "Se você pudesse ter nascido em outra época, quando seria?",
+                "Qual é a sua lembrança mais feliz?",
+                "O que te deixa orgulhoso?",
+                "Qual é o seu bolo favorito?",
+                "Se você pudesse falar qualquer idioma, qual seria?",
+                "Qual é a sua tradição favorita?",
+                "O que você faz quando está entediado?",
+                "Qual é o seu podcast favorito?",
+                "Se você pudesse ter qualquer talento artístico, qual seria?",
+                "Qual é a sua piada favorita?",
+                "O que te deixa confortável?",
+                "Qual é o seu lanche favorito?",
+                "Se você pudesse reviver qualquer década, qual seria?",
+                "Qual é a sua canção favorita para cantar no chuveiro?",
+                "O que você faz para se sentir melhor?",
+                "Qual é o seu presente favorito que já deu?",
+                "Se você pudesse ter qualquer habilidade musical, qual seria?",
+                "Qual é a sua citação favorita?",
+                "O que te faz sentir grato?",
+                "Qual é o seu chá ou café favorito?",
+                "Se você pudesse ter qualquer forma física, qual seria?",
+                "Qual é a sua aventura mais memorável?",
+                "O que você faz para celebrar?",
+                "Qual é o seu emoji favorito?",
+                "Se você pudesse ter qualquer experiência, qual seria?",
+                "Qual é a sua viagem favorita que já fez?",
+                "O que te faz sentir em paz?",
+                "Qual é o seu cereal favorito?",
+                "Se você pudesse ter qualquer idade para sempre, qual seria?",
+                "Qual é a sua melhor lembrança de escola?",
+                "O que você faz quando precisa de inspiração?",
+                "Qual é o seu estilo de dança favorito?",
+                "Se você pudesse ter qualquer roupa do mundo, qual seria?",
+                "Qual é a sua memória favorita de férias?",
+                "O que te deixa empolgado?",
+                "Qual é o seu sanduíche favorito?",
+                "Se você pudesse ter qualquer móvel, qual seria?",
+                "Qual é a sua melhor história de viagem?",
+                "O que você faz para se acalmar?",
+                "Qual é o seu biscoito favorito?",
+                "Se você pudesse ter qualquer joia, qual seria?",
+                "Qual é a sua tradição de aniversário favorita?",
+                "O que te faz rir de verdade?",
+                "Qual é o seu suco favorito?",
+                "Se você pudesse ter qualquer acessório, qual seria?",
+                "Qual é a sua melhor lembrança de festas?",
+                "O que você faz quando quer se animar?",
+                "Qual é o seu molho favorito?",
+                "Se você pudesse ter qualquer sapato, qual seria?",
+                "Qual é a sua tradição de Natal favorita?",
+                "O que te faz sentir especial?",
+                "Qual é a sua batata frita favorita?",
+                "Se você pudesse ter qualquer bolsa, qual seria?",
+                "Qual é a sua melhor lembrança de verão?",
+                "O que você faz para se sentir confiante?",
+                "Qual é o seu hambúrguer favorito?",
+                "Se você pudesse ter qualquer óculos, qual seria?",
+                "Qual é a sua tradição de Ano Novo favorita?",
+                "O que te faz sentir amado?",
+                "Qual é a sua massa favorita?",
+                "Se você pudesse ter qualquer chapéu, qual seria?",
+                "Qual é a sua melhor lembrança de inverno?",
+                "O que você faz para se sentir relaxado?",
+                "Qual é a sua carne favorita?",
+                "Se você pudesse ter qualquer relógio, qual seria?",
+                "Qual é a sua tradição de Páscoa favorita?",
+                "O que te faz sentir corajoso?",
+                "Qual é o seu peixe favorito?",
+                "Se você pudesse ter qualquer perfume, qual seria?",
+                "Qual é a sua melhor lembrança de primavera?",
+                "O que você faz para se sentir energizado?",
+                "Qual é a sua salada favorita?",
+                "Se você pudesse ter qualquer maquiagem, qual seria?",
+                "Qual é a sua tradição de aniversário mais especial?",
+                "O que te faz sentir realizado?",
+                "Qual é a sua sopa favorita?",
+                "Se você pudesse ter qualquer colar, qual seria?",
+                "Qual é a sua melhor lembrança de outono?",
+                "O que você faz para se sentir criativo?",
+                "Qual é o seu molho de salada favorito?",
+                "Se você pudesse ter qualquer anel, qual seria?",
+                "Qual é a sua tradição familiar favorita?",
+                "O que te faz sentir livre?",
+                "Qual é o seu tipo de arroz favorito?",
+                "Se você pudesse ter qualquer brinco, qual seria?",
+                "Qual é a sua melhor lembrança com família?",
+                "O que você faz para se sentir produtivo?",
+                "Qual é o seu tipo de feijão favorito?",
+                "Se você pudesse ter qualquer pulseira, qual seria?",
+                "Qual é a sua comemoração favorita?",
+                "O que te faz sentir poderoso?",
+                "Qual é o seu tipo de queijo favorito?",
+                "Se você pudesse ter qualquer broche, qual seria?",
+                "Qual é a sua melhor lembrança de festas de família?",
+                "O que você faz para se sentir motivado?",
+                "Qual é o seu tipo de pão favorito?",
+                "Se você pudesse ter qualquer tiara, qual seria?",
+                "Qual é a sua reunião familiar favorita?",
+                "O que te faz sentir seguro?",
+                "Qual é o seu tipo de manteiga favorito?",
+                "Se você pudesse ter qualquer lenço, qual seria?",
+                "Qual é a sua melhor lembrança de um encontro com amigos?",
+                "O que você faz quando quer se conectar consigo mesmo?",
+                "Qual é o seu tipo de azeite favorito?",
+                "Se você pudesse ter qualquer luva, qual seria?",
+                "Qual é a sua festa surpresa favorita?",
+                "O que te faz sentir confortável consigo mesmo?",
+                "Qual é o seu condimento favorito?",
+                "Se você pudesse ter qualquer cinto, qual seria?",
+                "Qual é a sua melhor lembrança de um evento especial?",
+                "O que você faz para se aceitar?",
+                "Qual é o seu tempero favorito?",
+                "Se você pudesse ter qualquer gravata, qual seria?",
+                "Qual é o momento mais marcante da sua vida?",
+                "O que te faz sentir único?",
+                "Qual foi a última vez que você riu até não aguentar mais?",
+                "O que você faria se tivesse coragem infinita?",
+                "Qual é a maior lição que a vida te ensinou?",
+                "O que você quer que as pessoas lembrem de você?",
+                "Qual é o seu ritual matinal perfeito?",
+                "O que te faz perder a noção do tempo?",
+                "Qual seria a trilha sonora da sua vida?",
+                "O que você faria diferente se pudesse recomeçar?",
+                "Qual é o seu maior talento que poucas pessoas conhecem?",
+                "O que te faz sentir completo?",
+            ],
+            'namorados': [
+                "O que você mais ama em mim?",
+                "Qual foi o momento em que você soube que me amava?",
+                "O que te atraiu em mim quando nos conhecemos?",
+                "Qual é a sua memória favorita de nós dois?",
+                "Como você imagina nosso futuro juntos?",
+                "O que te faz feliz em nosso relacionamento?",
+                "Qual é o seu tipo de beijo favorito?",
+                "O que você acha mais sexy em mim?",
+                "Qual foi o nosso melhor encontro?",
+                "Como você gosta de ser amado?",
+                "Qual é o seu lugar favorito para estarmos juntos?",
+                "O que você mais valoriza em nosso relacionamento?",
+                "Qual é o seu jeito favorito de passar tempo comigo?",
+                "O que te faz sentir mais próximo de mim?",
+                "Qual é o seu sonho para nós como casal?",
+                "O que você acha mais romântico?",
+                "Qual é a sua data favorita que já tivemos?",
+                "Como você gosta de ser surpreendido?",
+                "Qual é o seu tipo de carinho favorito?",
+                "O que você mais admira em nosso amor?",
+                "Qual é a coisa mais fofa que já fiz por você?",
+                "Como você se sente quando estamos juntos?",
+                "Qual é o seu momento favorito do dia conosco?",
+                "O que você gosta que eu faça por você?",
+                "Qual é o seu tipo de abraço favorito?",
+                "O que te faz sentir amado por mim?",
+                "Qual é a sua música de amor favorita?",
+                "Como você quer que seja nosso próximo aniversário de namoro?",
+                "Qual é o seu tipo de presente favorito?",
+                "O que você mais gosta quando estamos a sós?",
+                "Qual é o seu filme romântico favorito para assistirmos?",
+                "Como você gosta que eu demonstre meu amor?",
+                "Qual é o seu elogio favorito que já te dei?",
+                "O que você acha mais bonito em nosso relacionamento?",
+                "Qual é a sua fantasia romântica?",
+                "Como você imagina nosso primeiro lar juntos?",
+                "Qual é o seu tipo de comida favorita para comermos juntos?",
+                "O que você mais sente falta quando não estamos juntos?",
+                "Qual é o seu destino dos sonhos para viajarmos?",
+                "Como você gosta de ser tocado?",
+                "Qual é o seu momento mais especial comigo?",
+                "O que você acha que nos torna únicos como casal?",
+                "Qual é o seu tipo de surpresa favorita?",
+                "Como você quer que seja nosso casamento?",
+                "Qual é o seu apelido carinhoso favorito?",
+                "O que você mais gosta na nossa intimidade?",
+                "Qual é a sua tradição favorita que criamos juntos?",
+                "Como você gosta de ser acordado?",
+                "Qual é o seu tipo de massagem favorita?",
+                "O que você acha mais especial em nossos momentos juntos?",
+                "Qual é o seu plano perfeito para um fim de semana a dois?",
+                "Como você gosta que eu te olhe?",
+                "Qual é o seu tipo de declaração de amor favorita?",
+                "O que você mais valoriza em nossa conexão?",
+                "Qual é o seu momento favorito de carinho?",
+                "Como você imagina nosso aniversário de 50 anos?",
+                "Qual é o seu tipo de jantar romântico favorito?",
+                "O que você acha mais lindo em mim?",
+                "Qual é a sua lembrança mais romântica nossa?",
+                "Como você gosta de adormecer comigo?",
+                "Qual é o seu tipo de foto favorita nossa?",
+                "O que você mais gosta em nossa comunicação?",
+                "Qual é o seu momento favorito de risada comigo?",
+                "Como você quer celebrar nossas conquistas?",
+                "Qual é o seu tipo de dança favorita comigo?",
+                "O que você acha mais aconchegante em nosso amor?",
+                "Qual é a sua memória favorita de um beijo nosso?",
+                "Como você gosta de ser consolado?",
+                "Qual é o seu tipo de passeio favorito juntos?",
+                "O que você mais gosta em nossa parceria?",
+                "Qual é o seu momento favorito de olhares?",
+                "Como você imagina nossa vida daqui a 10 anos?",
+                "Qual é o seu tipo de música favorita para ouvirmos?",
+                "O que você acha mais precioso em nosso amor?",
+                "Qual é a sua lembrança favorita de um abraço nosso?",
+                "Como você gosta de ser cuidado?",
+                "Qual é o seu tipo de passeio noturno favorito?",
+                "O que você mais gosta em nossa cumplicidade?",
+                "Qual é o seu momento favorito de silêncio comigo?",
+                "Como você quer que seja nosso lar?",
+                "Qual é o seu tipo de café da manhã favorito na cama?",
+                "O que você acha mais mágico em nós?",
+                "Qual é a sua lembrança favorita de mãos dadas?",
+                "Como você gosta de ser apoiado?",
+                "Qual é o seu tipo de aventura favorita comigo?",
+                "O que você mais gosta em nossos sonhos compartilhados?",
+                "Qual é o seu momento favorito de ternura?",
+                "Como você imagina nossos filhos (se quisermos ter)?",
+                "Qual é o seu tipo de sobremesa favorita para dividirmos?",
+                "O que você acha mais encantador em mim?",
+                "Qual é a sua lembrança favorita de um toque nosso?",
+                "Como você gosta de ser motivado?",
+                "Qual é o seu tipo de filme favorito para assistirmos abraçados?",
+                "O que você mais gosta em nossa química?",
+                "Qual é o seu momento favorito de intimidade emocional?",
+                "Como você quer que sejam nossas manhãs juntos?",
+                "Qual é o seu tipo de viagem favorita comigo?",
+                "O que você acha mais profundo em nosso amor?",
+                "Qual é a sua lembrança favorita de um sorriso meu?",
+                "Como você gosta de ser entendido?",
+                "Qual é o seu tipo de presente de surpresa favorito?",
+                "O que você mais gosta em como nos completamos?",
+                "Qual é o seu momento favorito de conexão?",
+                "Como você imagina nossos domingos perfeitos?",
+                "Qual é o seu tipo de conversa favorita comigo?",
+                "O que você acha mais verdadeiro em nós?",
+                "Qual é a sua lembrança favorita de um olhar meu?",
+                "Como você gosta de ser respeitado?",
+                "Qual é o seu tipo de celebração favorita juntos?",
+                "O que você mais gosta em nossa confiança mútua?",
+                "Qual é o seu momento favorito de paz comigo?",
+                "Como você quer que seja nosso envelhecer juntos?",
+                "Qual é o seu tipo de atividade favorita em casa?",
+                "O que você acha mais genuíno em nosso relacionamento?",
+                "Qual é a sua lembrança favorita de uma risada nossa?",
+                "Como você gosta de ser valorizado?",
+                "Qual é o seu tipo de surpresa romântica favorita?",
+                "O que você mais gosta em nossa lealdade?",
+                "Qual é o seu momento favorito de aconchego?",
+                "Como você imagina nossas férias ideais?",
+                "Qual é o seu tipo de música favorita para dançarmos?",
+                "O que você acha mais sincero em mim?",
+                "Qual é a sua lembrança favorita de um gesto meu?",
+                "Como você gosta de ser priorizado?",
+                "Qual é o seu tipo de passeio de mãos dadas favorito?",
+                "O que você mais gosta em nossa honestidade?",
+                "Qual é o seu momento favorito de vulnerabilidade comigo?",
+                "Como você quer que sejam nossas noites juntos?",
+                "Qual é o seu tipo de brincadeira favorita comigo?",
+                "O que você acha mais autêntico em nós?",
+                "Qual é a sua lembrança favorita de um carinho meu?",
+                "Como você gosta de ser incluído?",
+                "Qual é o seu tipo de passeio de fim de semana favorito?",
+                "O que você mais gosta em nossa transparência?",
+                "Qual é o seu momento favorito de companheirismo?",
+                "Como você imagina nossos projetos juntos?",
+                "Qual é o seu tipo de jogo favorito para jogarmos?",
+                "O que você acha mais real em nosso amor?",
+                "Qual é a sua lembrança favorita de uma palavra minha?",
+                "Como você gosta de ser incluído nas decisões?",
+                "Qual é o seu tipo de hobby favorito para fazermos?",
+                "O que você mais gosta em nossa empatia mútua?",
+                "Qual é o seu momento favorito de descanso comigo?",
+                "Como você quer que sejam nossos rituais diários?",
+                "Qual é o seu tipo de leitura favorita juntos?",
+                "O que você acha mais puro em nós?",
+                "Qual é a sua lembrança favorita de um elogio meu?",
+                "Como você gosta de ser consultado?",
+                "Qual é o seu tipo de exercício favorito comigo?",
+                "O que você mais gosta em nossa compreensão mútua?",
+                "Qual é o seu momento favorito de diversão?",
+                "Como você imagina nossos hobbies compartilhados?",
+                "Qual é o seu tipo de série favorita para maratonarmos?",
+                "O que você acha mais especial em mim?",
+                "Qual é a sua lembrança favorita de um beijo de boa noite?",
+                "Como você gosta de ser ouvido?",
+                "Qual é o seu tipo de cozinhar juntos favorito?",
+                "O que você mais gosta em nossa paciência mútua?",
+                "Qual é o seu momento favorito de cumplicidade?",
+                "Como você quer que sejam nossas tradições?",
+                "Qual é o seu tipo de podcast favorito para ouvirmos?",
+                "O que você acha mais incrível em nosso relacionamento?",
+                "Qual é a sua lembrança favorita de um beijo de bom dia?",
+                "Como você gosta de ser reconhecido?",
+                "Qual é o seu tipo de caminhada favorita juntos?",
+                "O que você mais gosta em nossa aceitação mútua?",
+                "Qual é o seu momento favorito de alegria comigo?",
+                "Como você imagina nossos planos futuros?",
+                "Qual é o seu tipo de meditação favorita juntos?",
+                "O que você acha mais maravilhoso em nós?",
+                "Qual é a sua lembrança favorita de um abraço apertado?",
+                "Como você gosta de ser celebrado?",
+                "Qual é o seu tipo de yoga favorita juntos?",
+                "O que você mais gosta em nossa admiração mútua?",
+                "Qual é o seu momento favorito de tranquilidade?",
+                "Como você quer que sejam nossos momentos de qualidade?",
+                "Qual é o seu tipo de chá favorito para tomarmos?",
+                "O que você acha mais extraordinário em nosso amor?",
+                "Qual é a sua lembrança favorita de um toque suave?",
+                "Como você gosta de ser surpreendido romanticamente?",
+                "Qual é o seu tipo de piquenique favorito?",
+                "O que você mais gosta em nossa dedicação mútua?",
+                "Qual é o seu momento favorito de serenidade comigo?",
+                "Como você imagina nossos objetivos compartilhados?",
+                "Qual é o seu tipo de café favorito para bebermos?",
+                "O que você acha mais lindo em nossa jornada?",
+                "Qual é a sua lembrança favorita de um sussurro meu?",
+                "Como você gosta de ser mimado?",
+                "Qual é o seu tipo de natureza favorita para explorarmos?",
+                "O que você mais gosta em nossa devoção mútua?",
+                "Qual é o seu momento favorito de harmonia?",
+                "Como você quer que sejam nossos rituais noturnos?",
+                "Qual é o seu tipo de vinho favorito para degustarmos?",
+                "O que você acha mais perfeito em nós?",
+                "Qual é a sua lembrança favorita de um momento de silêncio aconchegante?",
+                "Como você gosta de ser cortejado?",
+                "Qual é o seu tipo de arte favorita para apreciarmos?",
+                "O que você mais gosta em nossa paixão mútua?",
+                "Qual é o seu momento favorito de bem-estar comigo?",
+                "Como você imagina nossos sonhos realizados?",
+                "Qual é o seu tipo de música clássica favorita para ouvirmos?",
+                "O que você acha mais sublime em nosso amor?",
+                "Qual é a sua lembrança favorita de acordar ao meu lado?",
+                "Como você gosta de ser desejado?",
+                "Qual é o seu tipo de museu favorito para visitarmos?",
+                "O que você mais gosta em nossa química emocional?",
+                "Qual é o seu momento favorito de contentamento?",
+                "Como você quer que sejam nossos aniversários juntos?",
+                "Qual é o seu tipo de chocolate favorito para dividirmos?",
+                "O que você acha mais divino em nós?",
+                "Qual foi o momento exato em que você percebeu que eu era especial?",
+                "O que você nunca teve coragem de me dizer, mas gostaria?",
+                "Qual é o seu maior desejo para nós dois?",
+                "O que te faz lembrar de mim quando estamos separados?",
+                "Qual é a pequena coisa que eu faço que te deixa apaixonado?",
+                "Como você quer crescer ao meu lado?",
+                "O que você acha que podemos melhorar em nossa relação?",
+                "Qual é o seu maior medo em relação a nós?",
+                "O que você mais espera viver comigo?",
+                "Qual é o momento do dia que você mais pensa em mim?",
+            ],
+            'amigos-coloridos': [
+                "O que você acha mais atraente em mim?",
+                "Qual é a sua fantasia secreta?",
+                "O que te deixa mais excitado?",
+                "Qual foi o seu melhor beijo?",
+                "O que você gosta que façam com você?",
+                "Qual é o seu maior fetiche?",
+                "O que você acha do nosso lance?",
+                "Qual é a coisa mais ousada que já fez?",
+                "O que te deixa com vontade?",
+                "Qual é o seu tipo físico ideal?",
+                "O que você mais gosta em encontros casuais?",
+                "Qual é a sua zona erógena favorita?",
+                "O que você acha de experimentar coisas novas?",
+                "Qual foi a sua experiência mais quente?",
+                "O que te deixa louco de desejo?",
+                "Qual é o seu lugar favorito para ficar?",
+                "O que você gosta que sussurrem no seu ouvido?",
+                "Qual é a sua lingerie favorita?",
+                "O que te deixa sem jeito mas ao mesmo tempo animado?",
+                "Qual é o seu tipo de toque favorito?",
+                "O que você acha de sexting?",
+                "Qual é a sua posição favorita para beijar?",
+                "O que te deixa mais à vontade?",
+                "Qual é o seu horário favorito do dia para ficar?",
+                "O que você gosta que façam no seu pescoço?",
+                "Qual é a sua música favorita para criar clima?",
+                "O que te deixa mais confortável em intimidade?",
+                "Qual é o seu perfume que mais atrai?",
+                "O que você acha de aventuras espontâneas?",
+                "Qual é a sua roupa favorita para seduzir?",
+                "O que te deixa mais confiante?",
+                "Qual é o seu tipo de ambiente favorito?",
+                "O que você gosta que façam com seu cabelo?",
+                "Qual é a sua bebida favorita para relaxar?",
+                "O que te deixa mais solto?",
+                "Qual é o seu tipo de massagem favorita?",
+                "O que você acha de carícias?",
+                "Qual é a sua parte favorita de ficar com alguém?",
+                "O que te deixa mais sensual?",
+                "Qual é o seu tipo de beijo favorito?",
+                "O que você gosta que façam com suas mãos?",
+                "Qual é a sua iluminação favorita?",
+                "O que te deixa mais no clima?",
+                "Qual é o seu tipo de conversa favorita?",
+                "O que você acha de provocações?",
+                "Qual é a sua temperatura favorita de ambiente?",
+                "O que te deixa mais receptivo?",
+                "Qual é o seu tipo de abraço favorito?",
+                "O que você gosta que façam nas suas costas?",
+                "Qual é a sua textura de tecido favorita?",
+                "O que te deixa mais relaxado antes?",
+                "Qual é o seu tipo de olhar favorito?",
+                "O que você acha de preliminares?",
+                "Qual é a sua altura favorita de salto?",
+                "O que te deixa mais atraído?",
+                "Qual é o seu tipo de cabelo favorito?",
+                "O que você gosta que façam na sua orelha?",
+                "Qual é a sua cor de roupa íntima favorita?",
+                "O que te deixa mais interessado?",
+                "Qual é o seu tipo de sorriso favorito?",
+                "O que você acha de toques sutis?",
+                "Qual é a sua fragrância corporal favorita?",
+                "O que te deixa mais curioso?",
+                "Qual é o seu tipo de corpo favorito?",
+                "O que você gosta que façam no seu braço?",
+                "Qual é a sua maquiagem favorita?",
+                "O que te deixa mais disposto?",
+                "Qual é o seu tipo de lábios favorito?",
+                "O que você acha de mordidas leves?",
+                "Qual é a sua cor de batom favorita?",
+                "O que te deixa mais provocado?",
+                "Qual é o seu tipo de olhos favorito?",
+                "O que você gosta que façam na sua barriga?",
+                "Qual é o seu estilo de roupa favorito?",
+                "O que te deixa mais tentado?",
+                "Qual é o seu tipo de pele favorito?",
+                "O que você acha de sussurros?",
+                "Qual é a sua cor de unha favorita?",
+                "O que te deixa mais seduzido?",
+                "Qual é o seu tipo de cintura favorito?",
+                "O que você gosta que façam nas suas pernas?",
+                "Qual é o seu acessório favorito?",
+                "O que te deixa mais fascinado?",
+                "Qual é o seu tipo de quadril favorito?",
+                "O que você acha de beijos no pescoço?",
+                "Qual é a sua joia favorita?",
+                "O que te deixa mais atraente?",
+                "Qual é o seu tipo de ombros favorito?",
+                "O que você gosta que façam nos seus pés?",
+                "Qual é o seu penteado favorito?",
+                "O que te deixa mais sedutor?",
+                "Qual é o seu tipo de mãos favorito?",
+                "O que você acha de carícias no rosto?",
+                "Qual é a sua combinação de cores favorita?",
+                "O que te deixa mais irresistível?",
+                "Qual é o seu tipo de pescoço favorito?",
+                "O que você gosta que façam na sua coxa?",
+                "Qual é o seu tipo de sombra favorita?",
+                "O que te deixa mais magnético?",
+                "Qual é o seu tipo de costas favorito?",
+                "O que você acha de toques na cintura?",
+                "Qual é o seu delineado favorito?",
+                "O que te deixa mais cativante?",
+                "Qual é o seu tipo de bumbum favorito?",
+                "O que você gosta que façam no seu peito?",
+                "Qual é o seu blush favorito?",
+                "O que te deixa mais encantador?",
+                "Qual é o seu tipo de peito favorito?",
+                "O que você acha de abraços por trás?",
+                "Qual é o seu gloss favorito?",
+                "O que te deixa mais charmoso?",
+                "Qual é o seu tipo de braços favorito?",
+                "O que você gosta que façam no seu ombro?",
+                "Qual é o seu contorno favorito?",
+                "O que te deixa mais interessante?",
+                "Qual é o seu tipo de barriga favorito?",
+                "O que você acha de mãos entrelaçadas?",
+                "Qual é o seu iluminador favorito?",
+                "O que te deixa mais desejável?",
+                "Qual é o seu tipo de pernas favorito?",
+                "O que você gosta que façam no seu rosto?",
+                "Qual é o seu primer favorito?",
+                "O que te deixa mais apaixonante?",
+                "Qual é o seu tipo de pés favorito?",
+                "O que você acha de beijos na testa?",
+                "Qual é a sua base favorita?",
+                "O que te deixa mais atraente fisicamente?",
+                "Qual é o seu tipo de rosto favorito?",
+                "O que você gosta que façam no seu lábio?",
+                "Qual é o seu corretivo favorito?",
+                "O que te deixa mais sexy?",
+                "Qual é o seu tipo de boca favorita?",
+                "O que você acha de olhares profundos?",
+                "Qual é o seu pó favorito?",
+                "O que te deixa mais quente?",
+                "Qual é o seu tipo de nariz favorito?",
+                "O que você gosta que façam no seu queixo?",
+                "Qual é o seu spray fixador favorito?",
+                "O que te deixa mais sensual fisicamente?",
+                "Qual é o seu tipo de olhar favorito?",
+                "O que você acha de toques no cabelo?",
+                "Qual é o seu hidratante favorito?",
+                "O que te deixa mais atraído fisicamente?",
+                "Qual é o seu tipo de sobrancelha favorita?",
+                "O que você gosta que façam na sua nuca?",
+                "Qual é o seu sérum favorito?",
+                "O que te deixa mais provocante?",
+                "Qual é o seu tipo de cílios favorito?",
+                "O que você acha de beijos suaves?",
+                "Qual é o seu protetor solar favorito?",
+                "O que te deixa mais tentador?",
+                "Qual é o seu tipo de formato de rosto favorito?",
+                "O que você gosta que façam no seu pulso?",
+                "Qual é a sua máscara de cílios favorita?",
+                "O que te deixa mais sedutor fisicamente?",
+                "Qual é o seu tipo de maxilar favorito?",
+                "O que você acha de carinhos leves?",
+                "Qual é o seu lápis de olho favorito?",
+                "O que te deixa mais magnético fisicamente?",
+                "Qual é o seu tipo de maçã do rosto favorita?",
+                "O que você gosta que façam no seu tornozelo?",
+                "Qual é a sua sombra de sobrancelha favorita?",
+                "O que te deixa mais cativante fisicamente?",
+                "Qual é o seu tipo de testa favorita?",
+                "O que você acha de abraços apertados?",
+                "Qual é o seu gel de sobrancelha favorito?",
+                "O que te deixa mais encantador fisicamente?",
+                "Qual é o seu tipo de queixo favorito?",
+                "O que você gosta que façam no seu joelho?",
+                "Qual é o seu curvex de cílios favorito?",
+                "O que te deixa mais charmoso fisicamente?",
+                "Qual é o seu tipo de maçã de adão favorita?",
+                "O que você acha de toques na lombar?",
+                "Qual é o seu primer de olhos favorito?",
+                "O que te deixa mais interessante fisicamente?",
+                "Qual é o seu tipo de clavícula favorita?",
+                "O que você gosta que façam no seu cotovelo?",
+                "Qual é a sua paleta de sombras favorita?",
+                "O que te deixa mais desejável fisicamente?",
+                "Qual é o seu tipo de ombros largos ou estreitos favorito?",
+                "O que você acha de dedos entrelaçados?",
+                "Qual é o seu pigmento favorito?",
+                "O que te deixa mais apaixonante fisicamente?",
+                "Qual é o seu tipo de proporção corporal favorita?",
+                "O que você gosta que façam no seu antebraço?",
+                "Qual é o seu glitter favorito?",
+                "O que te deixa mais atraente em geral?",
+                "Qual é o seu tipo de altura favorita?",
+                "O que você acha de abraços de lado?",
+                "Qual é o seu delineador líquido favorito?",
+                "O que te deixa mais sexy em geral?",
+                "Qual é o seu tipo de estrutura corporal favorita?",
+                "O que você gosta que façam na sua virilha?",
+                "Qual é o seu lápis de boca favorito?",
+                "O que te deixa mais quente em geral?",
+                "Qual é o seu tipo de definição muscular favorita?",
+                "O que você acha de beijos no ombro?",
+                "Qual é o seu batom líquido favorito?",
+                "O que te deixa mais sensual em geral?",
+                "Qual é o seu tipo de tom de pele favorito?",
+                "O que você gosta que façam na parte interna da sua coxa?",
+                "Qual é o seu esfoliante labial favorito?",
+                "O que te deixa mais provocante em geral?",
+                "Qual é o seu tipo de textura de pele favorita?",
+                "O que você acha de mordidas no lábio?",
+                "Qual é o seu hidratante labial favorito?",
+                "O que te deixa mais tentador em geral?",
+                "Qual é o seu tipo de tatuagem favorita?",
+                "O que você gosta que façam no seu pescoço por trás?",
+                "Qual é o seu lip tint favorito?",
+                "O que te deixa mais sedutor em geral?",
+                "Qual é o seu tipo de piercing favorito?",
+                "O que você acha de sussurros sensuais?",
+                "Qual é o seu lip balm favorito?",
+                "O que te deixa mais magnético em geral?",
+                "Qual é o seu tipo de barba ou não favorito?",
+                "O que você gosta que façam na sua mandíbula?",
+                "Qual é o seu esmalte favorito?",
+                "O que te deixa completamente louco de tesão?",
+                "O que você nunca fez mas morreria de vontade?",
+                "Qual é o seu sonho mais picante?",
+                "O que você acha que temos de química?",
+                "Qual é o limite que você não passa?",
+                "O que te faz querer mais?",
+                "Qual é a sua expectativa com a gente?",
+                "O que você acha da nossa vibe?",
+                "Qual é o momento mais intenso que já viveu?",
+                "O que você quer experimentar comigo?",
+            ],
+            'casados': [
+                "O que ainda te surpreende em nosso casamento?",
+                "Qual é a nossa melhor memória íntima?",
+                "O que você gostaria de experimentar comigo?",
+                "Qual é o seu maior desejo sexual?",
+                "O que te deixa mais excitado em mim?",
+                "Qual foi o nosso melhor momento de intimidade?",
+                "O que você acha que podemos apimentar?",
+                "Qual é a sua fantasia mais ousada?",
+                "O que te faz desejar mais nossa intimidade?",
+                "Qual é o seu local favorito da casa para ficarmos juntos?",
+                "O que você gosta que eu faça na cama?",
+                "Qual é o seu tipo de preliminar favorita?",
+                "O que te deixa louco de desejo por mim?",
+                "Qual é a sua posição favorita?",
+                "O que você acha de experimentarmos coisas novas?",
+                "Qual é o seu horário favorito para fazermos amor?",
+                "O que te deixa mais no clima comigo?",
+                "Qual é a sua roupa íntima favorita minha?",
+                "O que você gostaria que eu fizesse mais?",
+                "Qual é o seu tipo de toque favorito?",
+                "O que te deixa mais excitado quando fazemos?",
+                "Qual é a sua zona erógena que eu mais gosto de explorar?",
+                "O que você acha de brinquedos?",
+                "Qual é o seu momento favorito do sexo?",
+                "O que te faz ter mais prazer?",
+                "Qual é a sua música favorita para fazer amor?",
+                "O que você gostaria de tentar pela primeira vez juntos?",
+                "Qual é o seu tipo de beijo favorito durante?",
+                "O que te deixa mais satisfeito depois?",
+                "Qual é a sua frequência ideal?",
+                "O que você acha de quickies?",
+                "Qual é o seu tipo de carinho favorito depois?",
+                "O que te deixa mais conectado comigo intimamente?",
+                "Qual é a sua iluminação favorita para o momento?",
+                "O que você gosta que eu sussurre?",
+                "Qual é o seu tipo de massagem sensual favorita?",
+                "O que te deixa mais à vontade para se abrir?",
+                "Qual é a sua temperatura favorita do quarto?",
+                "O que você acha de sexting durante o dia?",
+                "Qual é o seu tipo de banho favorito juntos?",
+                "O que te deixa mais animado para a noite?",
+                "Qual é a sua roupa favorita para me ver?",
+                "O que você gostaria que durasse mais?",
+                "Qual é o seu tipo de gemido favorito?",
+                "O que te deixa mais intenso?",
+                "Qual é a sua parte favorita das preliminares?",
+                "O que você acha de explorarmos mais?",
+                "Qual é o seu tipo de ambiente favorito?",
+                "O que te deixa mais apaixonado durante?",
+                "Qual é a sua fantasia de role-play favorita?",
+                "O que você gostaria de mudar em nossa rotina íntima?",
+                "Qual é o seu tipo de ritmo favorito?",
+                "O que te deixa mais entregue?",
+                "Qual é a sua parte favorita do meu corpo para tocar?",
+                "O que você acha de experimentarmos locais diferentes?",
+                "Qual é o seu tipo de sexo favorito (romântico, intenso, etc.)?",
+                "O que te deixa mais vulnerável de prazer?",
+                "Qual é a sua posição favorita para nos olharmos?",
+                "O que você gostaria que eu usasse mais?",
+                "Qual é o seu tipo de final favorito?",
+                "O que te deixa mais realizado depois?",
+                "Qual é a sua hora do dia favorita para intimidade?",
+                "O que você acha de videos ou fotos nossas?",
+                "Qual é o seu tipo de contato visual favorito durante?",
+                "O que te deixa mais estimulado mentalmente?",
+                "Qual é a sua parte favorita de me despir?",
+                "O que você gostaria de aprender juntos?",
+                "Qual é o seu tipo de conversa safada favorita?",
+                "O que te deixa mais excitado antes de começarmos?",
+                "Qual é a sua fantasia de localização favorita?",
+                "O que você acha de prolongarmos o momento?",
+                "Qual é o seu tipo de domínio favorito (dar ou receber)?",
+                "O que te deixa mais seduzido por mim?",
+                "Qual é a sua parte favorita de me tocar?",
+                "O que você gostaria de fazer mais espontaneamente?",
+                "Qual é o seu tipo de sensação favorita?",
+                "O que te deixa mais interessado durante o dia?",
+                "Qual é a sua memória mais quente nossa?",
+                "O que você acha de experimentarmos horários inusitados?",
+                "Qual é o seu tipo de provocação favorita?",
+                "O que te deixa mais desejoso durante a semana?",
+                "Qual é a sua parte favorita de me ver nua/nu?",
+                "O que você gostaria de surpreender com?",
+                "Qual é o seu tipo de duração favorita?",
+                "O que te deixa mais conectado durante?",
+                "Qual é a sua fantasia de cenário favorita?",
+                "O que você acha de incluirmos acessórios?",
+                "Qual é o seu tipo de intensidade favorita?",
+                "O que te deixa mais presente no momento?",
+                "Qual é a sua parte favorita de me beijar durante?",
+                "O que você gostaria de explorar mais em mim?",
+                "Qual é o seu tipo de atmosfera favorita?",
+                "O que te deixa mais excitado com meu corpo?",
+                "Qual é a sua posição favorita para minha satisfação?",
+                "O que você acha de variarmos mais a rotina?",
+                "Qual é o seu tipo de toque inicial favorito?",
+                "O que te deixa mais animado para tentarmos?",
+                "Qual é a sua parte favorita do meu jeito na cama?",
+                "O que você gostaria de comunicar mais durante?",
+                "Qual é o seu tipo de velocidade favorita?",
+                "O que te deixa mais fascinado em nossa química?",
+                "Qual é a sua fantasia de vestimenta favorita?",
+                "O que você acha de descobrirmos juntos?",
+                "Qual é o seu tipo de pressão favorita?",
+                "O que te deixa mais atraído durante as preliminares?",
+                "Qual é a sua parte favorita de me excitar?",
+                "O que você gostaria de repetir mais vezes?",
+                "Qual é o seu tipo de profundidade favorita?",
+                "O que te deixa mais estimulado fisicamente?",
+                "Qual é a sua posição favorita para nossa conexão?",
+                "O que você acha de testarmos limites?",
+                "Qual é o seu tipo de ângulo favorito?",
+                "O que te deixa mais aberto para experimentar?",
+                "Qual é a sua parte favorita de me segurar?",
+                "O que você gostaria de prolongar na próxima vez?",
+                "Qual é o seu tipo de movimento favorito?",
+                "O que te deixa mais entregue ao momento?",
+                "Qual é a sua fantasia de tempo favorita (rápido, longo)?",
+                "O que você acha de explorarmos mais sensações?",
+                "Qual é o seu tipo de aperto favorito?",
+                "O que te deixa mais conectado emocionalmente durante?",
+                "Qual é a sua parte favorita de me acariciar?",
+                "O que você gostaria de ouvir durante?",
+                "Qual é o seu tipo de contato favorito?",
+                "O que te deixa mais satisfeito com nossa intimidade?",
+                "Qual é a sua posição favorita para meu prazer?",
+                "O que você acha de adicionarmos elementos novos?",
+                "Qual é o seu tipo de fricção favorita?",
+                "O que te deixa mais excitado com minha reação?",
+                "Qual é a sua parte favorita de me provocar?",
+                "O que você gostaria de fazer mais inesperadamente?",
+                "Qual é o seu tipo de penetração favorita?",
+                "O que te deixa mais intenso com meu corpo?",
+                "Qual é a sua fantasia de situação favorita?",
+                "O que você acha de experimentarmos mais posições?",
+                "Qual é o seu tipo de estimulação favorita?",
+                "O que te deixa mais excitado com minha voz?",
+                "Qual é a sua parte favorita de me ouvir?",
+                "O que você gostaria de tentar mais vezes?",
+                "Qual é o seu tipo de abraço favorito durante?",
+                "O que te deixa mais conectado com minha alma?",
+                "Qual é a sua posição favorita para nosso orgasmo?",
+                "O que você acha de sincronizarmos mais?",
+                "Qual é o seu tipo de beijo favorito no clímax?",
+                "O que te deixa mais realizado intimamente?",
+                "Qual é a sua parte favorita do pós?",
+                "O que você gostaria de dividir comigo?",
+                "Qual é o seu tipo de carinho favorito depois do sexo?",
+                "O que te deixa mais satisfeito com nossa vida sexual?",
+                "Qual é a sua conversa favorita depois?",
+                "O que você acha de planejarmos mais?",
+                "Qual é o seu tipo de abraço favorito pós-sexo?",
+                "O que te deixa mais grato por nossa intimidade?",
+                "Qual é a sua parte favorita de adormecer depois?",
+                "O que você gostaria de melhorar juntos?",
+                "Qual é o seu tipo de conexão favorita depois?",
+                "O que te deixa mais apaixonado após?",
+                "Qual é a sua rotina favorita pós-intimidade?",
+                "O que você acha de nossa frequência?",
+                "Qual é o seu tipo de descanso favorito juntos?",
+                "O que te deixa mais completo depois?",
+                "Qual é a sua parte favorita de ficarmos juntos depois?",
+                "O que você gostaria de explorar ainda?",
+                "Qual é o seu tipo de comunicação favorita sobre sexo?",
+                "O que te deixa mais confortável para se abrir?",
+                "Qual é a sua expectativa favorita para a próxima vez?",
+                "O que você acha de nossa compatibilidade sexual?",
+                "Qual é o seu tipo de preparação favorita?",
+                "O que te deixa mais animado para a próxima vez?",
+                "Qual é a sua parte favorita de nossa vida íntima?",
+                "O que você gostaria de celebrar mais em nós?",
+                "Qual é o seu tipo de ritual favorito antes?",
+                "O que te deixa mais confiante em nossa intimidade?",
+                "Qual é a sua qualidade favorita nossa na cama?",
+                "O que você acha de nossa química sexual?",
+                "Qual é o seu tipo de previsibilidade ou surpresa favorita?",
+                "O que te deixa mais feliz com nossa sexualidade?",
+                "Qual é a sua parte favorita de nosso entendimento íntimo?",
+                "O que você gostaria de agradecer sobre nossa vida sexual?",
+                "Qual é o seu tipo de equilíbrio favorito (dar/receber)?",
+                "O que te deixa mais orgulhoso de nós?",
+                "Qual é a sua conquista favorita nossa na intimidade?",
+                "O que você acha de nossa evolução sexual?",
+                "Qual é o seu tipo de reciprocidade favorita?",
+                "O que te deixa mais seguro em nossa sexualidade?",
+                "Qual é a sua parte favorita de nossa confiança íntima?",
+                "O que você gostaria de cultivar mais?",
+                "Qual é o seu tipo de respeito favorito em nossa intimidade?",
+                "O que te deixa mais amado depois do sexo?",
+                "Qual é a sua tradição íntima favorita nossa?",
+                "O que você acha de nossa comunicação sexual?",
+                "Qual é o seu tipo de generosidade favorita na cama?",
+                "O que te deixa mais realizado sexualmente?",
+                "Qual é a sua parte favorita de nossa liberdade íntima?",
+                "O que você gostaria de manter para sempre?",
+                "Qual é o seu tipo de autenticidade favorita em nós?",
+                "O que te deixa mais em paz com nossa vida sexual?",
+                "Qual é a sua parte favorita de nossa vulnerabilidade íntima?",
+                "O que você acha de nossa sinceridade sexual?",
+                "Qual é o segredo que você nunca me contou sobre o que te excita?",
+                "O que você sempre quis fazer mas tinha vergonha de pedir?",
+                "Qual é o seu maior fetiche escondido?",
+                "O que você mudaria em nossa vida íntima se pudesse?",
+                "Qual é a coisa mais picante que você já pensou sobre nós?",
+                "O que te faz sentir mais desejado por mim?",
+                "Qual é o momento mais intenso que já vivemos?",
+                "O que você acha que está faltando em nossa intimidade?",
+                "Qual é o seu maior desejo sexual não realizado comigo?",
+                "O que você gostaria que eu fizesse mais para te surpreender?",
+            ]
+        };
+
+        const categoryInfo = {
+            'amigos': {
+                title: 'Amigos',
+                icon: '🤝',
+                color: 'linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%)'
+            },
+            'namorados': {
+                title: 'Namorados',
+                icon: '💑',
+                color: 'linear-gradient(135deg, #F472B6 0%, #EC4899 100%)'
+            },
+            'amigos-coloridos': {
+                title: 'Amigos Coloridos',
+                icon: '💋',
+                color: 'linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%)'
+            },
+            'casados': {
+                title: 'Casados',
+                icon: '💍',
+                color: 'linear-gradient(135deg, #F87171 0%, #EF4444 100%)'
+            }
+        };
+
+        let currentCategory = null;
+        let questionHistory = [];
+
+        function selectCategory(category) {
+            currentCategory = category;
+            questionHistory = [];
+            
+            document.getElementById('homeScreen').classList.add('hidden');
+            document.getElementById('questionScreen').classList.remove('hidden');
+            
+            const info = categoryInfo[category];
+            document.getElementById('badgeIcon').textContent = info.icon;
+            document.getElementById('badgeText').textContent = info.title;
+            document.getElementById('questionIcon').textContent = info.icon;
+            document.getElementById('categoryBadge').style.background = info.color;
+            document.getElementById('nextButton').style.background = info.color;
+            
+            showRandomQuestion();
+        }
+
+        function getRandomQuestion() {
+            const categoryQuestions = questions[currentCategory];
+            const availableQuestions = categoryQuestions.filter(q => !questionHistory.includes(q));
+            
+            if (availableQuestions.length === 0) {
+                questionHistory = [];
+                return categoryQuestions[Math.floor(Math.random() * categoryQuestions.length)];
+            }
+            
+            const randomQuestion = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+            questionHistory.push(randomQuestion);
+            return randomQuestion;
+        }
+
+        function showRandomQuestion() {
+            const question = getRandomQuestion();
+            document.getElementById('questionText').textContent = question;
+        }
+
+        function nextQuestion() {
+            showRandomQuestion();
+        }
+
+        function goBack() {
+            currentCategory = null;
+            questionHistory = [];
+            
+            document.getElementById('questionScreen').classList.add('hidden');
+            document.getElementById('homeScreen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
